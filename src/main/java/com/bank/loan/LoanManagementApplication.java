@@ -20,23 +20,32 @@ public class LoanManagementApplication {
 	}
 
 	@Bean
-    CommandLineRunner createAdmin(
+	CommandLineRunner createDefaultUsers(
 			UserRepository userRepository,
 			PasswordEncoder passwordEncoder
 	) {
 		return args -> {
 
-			if (userRepository
-					.findByUsername("admin")
-					.isEmpty()) {
+			if (userRepository.findByUsername("admin").isEmpty()) {
 
 				User admin = new User(
 						"admin",
-						passwordEncoder.encode("admin123"),
+						passwordEncoder.encode("123456"),
 						"ROLE_ADMIN"
 				);
 
 				userRepository.save(admin);
+			}
+
+			if (userRepository.findByUsername("user").isEmpty()) {
+
+				User user = new User(
+						"user",
+						passwordEncoder.encode("123456"),
+						"ROLE_USER"
+				);
+
+				userRepository.save(user);
 			}
 		};
 	}
