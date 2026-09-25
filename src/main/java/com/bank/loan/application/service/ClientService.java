@@ -6,6 +6,9 @@ import com.bank.loan.application.dto.CreateClientRequest;
 import com.bank.loan.domain.exception.ClientNotFoundException;
 import com.bank.loan.infrastructure.persistence.ClientRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ClientService {
@@ -48,5 +51,10 @@ public class ClientService {
                 client.getPhone(),
                 client.getBirthDate()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<Client> getAllClients() {
+        return clientRepository.findAll();
     }
 }

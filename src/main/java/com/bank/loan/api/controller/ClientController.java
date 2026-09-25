@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
@@ -23,6 +25,11 @@ public class ClientController {
 
         Client client = clientService.createClient(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(client);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Client>> getAllClients() {
+        return ResponseEntity.ok(clientService.getAllClients());
     }
 
     @GetMapping("/{id}")
